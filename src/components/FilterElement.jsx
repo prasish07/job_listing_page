@@ -4,12 +4,16 @@ import Button from "./Button";
 import { setSelectedKeywords } from "../State";
 import PropTypes from "prop-types";
 
+// Define FilterElement component with keywords prop
 const FilterElement = ({ keywords }) => {
   const dispatch = useDispatch();
+  // Get isOpen value from Redux store
   const popup = useSelector((state) => state.popup.isOpen);
+  // Get selectedKeywords value from Redux store
   const selectedKeywords = useSelector((state) => state.popup.selectedKeywords);
   return (
     <>
+      {/* Show Filter button */}
       <a
         onClick={() => dispatch(togglePopup())}
         className="mt-2 mr-2 absolute "
@@ -20,6 +24,7 @@ const FilterElement = ({ keywords }) => {
         />
       </a>
 
+      {/* Show popup with keyword buttons */}
       <div
         className={`${
           popup ? "flex" : "hidden"
@@ -31,6 +36,7 @@ const FilterElement = ({ keywords }) => {
               <li
                 key={index}
                 onClick={() => {
+                  // Add keyword to selectedKeywords if not already present
                   if (!selectedKeywords.includes(item)) {
                     dispatch(setSelectedKeywords([...selectedKeywords, item]));
                   }
@@ -49,6 +55,7 @@ const FilterElement = ({ keywords }) => {
   );
 };
 
+// Define propTypes for FilterElement component
 FilterElement.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
 };

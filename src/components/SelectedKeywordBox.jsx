@@ -2,6 +2,7 @@ import Button from "./Button";
 import close from "../assets/close.svg";
 import PropTypes from "prop-types";
 
+// Define SelectedKeywordsBox component with selectedKeywords, handleRemoveKeyword, and handleClearKeyword props
 const SelectedKeywordsBox = ({
   selectedKeywords,
   handleRemoveKeyword,
@@ -10,6 +11,7 @@ const SelectedKeywordsBox = ({
   return (
     <div className="flex items-center w-[85%] ml-[100px] absolute right-[130px] bg-white h-[60px] px-10 py-5 rounded-xl shadow-2xl">
       <div className="w-full flex flex-wrap flex-row">
+        {/* Show selected keywords with remove button */}
         {selectedKeywords.map((keyword, index) => (
           <a className="flex mx-3" key={index}>
             <Button styles="bg-green-100 text-green-950 px-4" text={keyword} />
@@ -22,6 +24,7 @@ const SelectedKeywordsBox = ({
           </a>
         ))}
       </div>
+      {/* Show Clear button */}
       <div
         className="flex justify-center  w-[40px] cursor-pointer"
         onClick={handleClearKeyword}
@@ -34,6 +37,7 @@ const SelectedKeywordsBox = ({
   );
 };
 
+// Define propTypes for SelectedKeywordsBox component
 SelectedKeywordsBox.propTypes = {
   selectedKeywords: PropTypes.array,
   handleRemoveKeyword: PropTypes.func,

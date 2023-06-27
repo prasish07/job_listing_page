@@ -2,6 +2,7 @@ import Button from "./Button";
 import PropTypes from "prop-types";
 import { differentTime } from "../utils/differentTime";
 
+// Function to format postedOn date
 const timeFormat = (postedOn) => {
   const currentTime = new Date().getTime();
   const postedTime = new Date(postedOn).getTime();
@@ -17,12 +18,15 @@ const timeFormat = (postedOn) => {
   }
 };
 
+// Define Card component with item prop
 const Card = ({ item }) => {
+  // Format posted_on date
   const timeFormated = timeFormat(item.posted_on);
   return (
     <div
       className="flex flex-row mb-8 rounded-xl px-10 items-center h-[150px] justify-between shadow-xl bg-white"
       style={{
+        // Add green border if posted_on date is within the last 6 days
         borderLeft:
           differentTime(item.posted_on) <= 6 ? "10px solid green" : "",
       }}
@@ -43,6 +47,7 @@ const Card = ({ item }) => {
             <div className="font-poppins font-semibold text-blue-600 text-[18px]">
               {item.company}
             </div>
+            {/* Show New and featured buttons if posted_on date is within the last 10 or 7 days */}
             {differentTime(item.posted_on) <= 10 ? (
               <div className="flex">
                 <Button
@@ -68,6 +73,7 @@ const Card = ({ item }) => {
             {item.position}
           </h2>
           <div className="flex flex-row">
+            {/* Show formatted posted_on date, timing, and location */}
             <p className="font-poppins text-gray-600 flex ">
               {timeFormated} <span className="mx-4">-</span> {item.timing}{" "}
               <span className="mx-4">-</span> {item.location}
@@ -75,6 +81,7 @@ const Card = ({ item }) => {
           </div>
         </div>
       </div>
+      {/* Show keyword buttons */}
       <div className="">
         {item.keywords.map((keyword, index) => {
           return (
@@ -90,6 +97,7 @@ const Card = ({ item }) => {
   );
 };
 
+// Define propTypes for Card component
 Card.propTypes = {
   item: PropTypes.shape({
     company_logo: PropTypes.string,

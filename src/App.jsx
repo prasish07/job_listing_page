@@ -8,6 +8,7 @@ import FilterElement from "./components/FilterElement";
 import { setSelectedKeywords } from "./State";
 import SelectedKeywordsBox from "./components/SelectedKeywordBox";
 import Loading from "./components/Loading";
+import { useCallback } from "react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -16,11 +17,14 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [keywords, setKeywords] = useState([]);
+  // Get selected keywords from Redux store
   const selectedKeywords = useSelector((state) => state.popup.selectedKeywords);
 
-  const fetchItems = async () => {
+  // Function to fetch data from API
+  const fetchItems = useCallback(async () => {
     const response = await axios.get(url);
     if (response.data) {
+      // Sort items by posted date
       const sortedItems = response.data.sort((a, b) => {
         const timeA = differentTime(a.posted_on);
         const timeB = differentTime(b.posted_on);
@@ -32,6 +36,7 @@ const App = () => {
       );
       setItems(filteredItems);
 
+      // Get unique keywords from all items
       const uniqueKeywords = Array.from(
         new Set(sortedItems.flatMap((item) => item.keywords))
       );
@@ -40,21 +45,25 @@ const App = () => {
     } else {
       setIsLoading(true);
     }
-  };
+  }, [selectedKeywords]);
+  // Fetch data on component mount and when selectedKeywords change
   useEffect(() => {
     fetchItems();
-  }, [selectedKeywords]);
+  }, [fetchItems]);
 
+  // Function to remove a keyword from selectedKeywords
   const handleRemoveKeyword = (keyword) => {
     dispatch(
       setSelectedKeywords(selectedKeywords.filter((item) => item !== keyword))
     );
   };
 
+  // Function to clear all selectedKeywords
   const handleClearKeyword = () => {
     dispatch(setSelectedKeywords([]));
   };
 
+  // Show loading component while data is being fetched
   if (isLoading) {
     return <Loading />;
   }

@@ -1,3 +1,4 @@
+// To get he different of time between posted date and current date
 export const differentTime = (postedOn) => {
   const currentTime = new Date().getTime();
   const postedTime = new Date(postedOn).getTime();
