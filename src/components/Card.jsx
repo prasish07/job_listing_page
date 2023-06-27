@@ -1,4 +1,6 @@
 import Button from "./Button";
+import PropTypes from "prop-types";
+import { differentTime } from "../utils/differentTime";
 
 const timeFormat = (postedOn) => {
   const currentTime = new Date().getTime();
@@ -13,15 +15,6 @@ const timeFormat = (postedOn) => {
   } else {
     return `${days} days ago`;
   }
-};
-
-export const differentTime = (postedOn) => {
-  const currentTime = new Date().getTime();
-  const postedTime = new Date(postedOn).getTime();
-  const difference = currentTime - postedTime;
-
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  return days;
 };
 
 const Card = ({ item }) => {
@@ -95,6 +88,18 @@ const Card = ({ item }) => {
       </div>
     </div>
   );
+};
+
+Card.propTypes = {
+  item: PropTypes.shape({
+    company_logo: PropTypes.string,
+    company: PropTypes.string,
+    posted_on: PropTypes.number,
+    position: PropTypes.string,
+    timing: PropTypes.string,
+    location: PropTypes.string,
+    keywords: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 export default Card;

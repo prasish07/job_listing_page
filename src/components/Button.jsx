@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Button = ({ styles, text }) => {
   return (
     <button
@@ -7,6 +9,11 @@ const Button = ({ styles, text }) => {
       {text}
     </button>
   );
+};
+
+Button.propTypes = {
+  styles: PropTypes.string,
+  text: PropTypes.string,
 };
 
 export default Button;
