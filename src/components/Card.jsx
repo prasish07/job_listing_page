@@ -24,25 +24,22 @@ const Card = ({ item }) => {
   const timeFormated = timeFormat(item.posted_on);
   return (
     <div
-      className="flex flex-row mb-8 rounded-xl px-10 items-center h-[150px] justify-between shadow-xl bg-white"
+      className="flex sm:flex-row flex-col mb-8 rounded-xl md:px-10 sm:px-5 p-5 items-center md:h-[150px] sm:h-[200px] h-auto justify-between shadow-xl bg-white"
       style={{
         // Add green border if posted_on date is within the last 6 days
         borderLeft:
           differentTime(item.posted_on) <= 6 ? "10px solid green" : "",
       }}
     >
-      <div className="flex flex-row">
+      <div className="flex sm:flex-row flex-col items-center">
         <img
-          className="rounded-full object-cover"
+          className="rounded-full object-cover sm:w-[100px] sm:h-[100px] w-[70px] h-[70px]"
           src={item.company_logo}
           alt="company logo"
-          style={{
-            width: "100px",
-            height: "100px",
-          }}
+          
         />
 
-        <div className="flex flex-col justify-center items-start ml-5">
+        <div className="flex flex-col justify-center sm:items-start items-center sm:ml-5 sm:mt-0 mt-5">
           <div className="flex justify-center items-center">
             <div className="font-poppins font-semibold text-blue-600 text-[18px]">
               {item.company}
@@ -74,20 +71,20 @@ const Card = ({ item }) => {
           </h2>
           <div className="flex flex-row">
             {/* Show formatted posted_on date, timing, and location */}
-            <p className="font-poppins text-gray-600 flex ">
-              {timeFormated} <span className="mx-4">-</span> {item.timing}{" "}
-              <span className="mx-4">-</span> {item.location}
+            <p className="font-poppins text-gray-600 flex sm:mb-0 mb-2 text-[14px]">
+              {timeFormated} <span className="mx-2">-</span> {item.timing}{" "}
+              <span className="mx-2">-</span> {item.location}
             </p>
           </div>
         </div>
       </div>
       {/* Show keyword buttons */}
-      <div className="">
+      <div className="flex flex-wrap sm:justify-end md:justify-start justify-center">
         {item.keywords.map((keyword, index) => {
           return (
             <Button
               key={index}
-              styles="bg-green-100 rounded-[10px] text-green-900 px-4 mx-2 hover:text-white hover:bg-green-900"
+              styles="bg-green-100 rounded-[10px] text-green-900 px-4 mx-2 hover:text-white hover:bg-green-900 sm:m-2 m-2"
               text={keyword}
             />
           );
